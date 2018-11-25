@@ -4,15 +4,13 @@ export default (store) => (next) => (action) => {
   const { callAPI, ...rest } = action
 
   if (!callAPI) return next(rest)
-
   next({ ...rest, type: action.type + START })
-
   fetch(callAPI)
     .then((res) => res.json())
-    .then((responce) => {
+    .then((response) => {
       next({
         ...rest,
-        responce,
+        response,
         type: action.type + SUCCESS
       })
     })

@@ -4,7 +4,6 @@ import { incrementActionCreator } from '../../ac'
 
 class Counter extends Component {
   render() {
-    console.log('Counter')
     return (
       <div>
         <h1>{this.props.countProp}</h1>

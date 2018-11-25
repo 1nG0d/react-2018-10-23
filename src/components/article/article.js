@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import { deleteArticle, loadArticle } from '../../ac'
-import Loader from '../common/loader'
+//import Loader from '../common/loader'
 
 class Article extends PureComponent {
   state = {

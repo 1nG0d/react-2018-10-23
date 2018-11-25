@@ -23,6 +23,7 @@ export class ArticleList extends Component {
   }
 
   componentDidMount() {
+    console.log('props from article list', this.props)
     !this.props.loaded && this.props.fetchData && this.props.fetchData()
   }
   render() {
@@ -45,7 +46,6 @@ export class ArticleList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('connect articles-list')
   return {
     articles: filteredArticleSelector(state),
     loading: articleLoadingSelector(state),

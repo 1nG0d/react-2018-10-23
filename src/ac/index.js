@@ -8,7 +8,9 @@ import {
   LOAD_ARTICLE,
   START,
   SUCCESS,
-  FAIL
+  FAIL,
+  LOAD_ALL_COMMENTS,
+  LOAD_ARTICLE_COMMENTS
 } from '../constants'
 
 export function incrementActionCreator() {
@@ -50,6 +52,12 @@ export function loadAllArticles() {
     callAPI: '/api/article'
   }
 }
+export function loadAllComments() {
+  return {
+    type: LOAD_ALL_COMMENTS,
+    callAPI: '/api/comments'
+  }
+}
 
 // export function loadArticle(id) {
 //   return {
@@ -58,6 +66,30 @@ export function loadAllArticles() {
 //     callAPI: `/api/article/${id}`
 //   }
 // }
+
+export function loadArticleComments(articleId) {
+  return function(dispatch) {
+    dispatch({ type: LOAD_ARTICLE_COMMENTS + START, payload: { articleId } })
+
+    setTimeout(function() {
+      fetch(`/api/comment?article=${articleId}`)
+        .then((res) => res.json())
+        .then((response) =>
+          dispatch({
+            type: LOAD_ARTICLE_COMMENTS + SUCCESS,
+            payload: { response, articleId }
+          })
+        )
+        .catch((error) =>
+          dispatch({
+            type: LOAD_ARTICLE_COMMENTS + FAIL,
+            payload: { error, articleId }
+          })
+        )
+      console.log('comments for article LOADED')
+    }, 1000)
+  }
+}
 
 export function loadArticle(id) {
   return function(dispatch) {
@@ -68,9 +100,9 @@ export function loadArticle(id) {
 
     fetch(`/api/article/${id}`)
       .then((res) => res.json())
-      .then((responce) => {
+      .then((response) => {
         dispatch({
-          payload: responce,
+          payload: response,
           type: LOAD_ARTICLE + SUCCESS
         })
       })

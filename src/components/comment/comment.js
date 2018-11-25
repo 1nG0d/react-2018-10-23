@@ -5,6 +5,7 @@ import { createCommentSelector } from '../../selectors'
 
 class Comment extends Component {
   render() {
+    console.log('props from comment', this.props)
     const { user, text } = this.props.comment
     return (
       <div>
